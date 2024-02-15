@@ -18,28 +18,28 @@ public class HandTest {
     @Test()
     public void testDuplicateCardException() {
         String[] handInput = {"2H", "2H", "4H", "5H", "6H"};
-        DuplicateCardException exception = assertThrows(DuplicateCardException.class, () -> { new Hand(handInput); });
+        DuplicateCardException exception = assertThrows(DuplicateCardException.class, () -> new Hand(handInput));
         assertEquals("Hand contains duplicate card(s)", exception.getMessage());
     }
 
     @Test()
     public void testDuplicateCardsWithMixedCaseException() {
         String[] handInput = {"2H", "2D", "4H", "th", "TH"};
-        DuplicateCardException exception = assertThrows(DuplicateCardException.class, () -> { new Hand(handInput); });
+        DuplicateCardException exception = assertThrows(DuplicateCardException.class, () -> new Hand(handInput));
         assertEquals("Hand contains duplicate card(s)", exception.getMessage());
     }
 
     @Test()
     public void testTooFewCards() {
         String[] handInput = {"2H", "3H", "4H", "5H"};
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> { new Hand(handInput); });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Hand(handInput));
         assertEquals("Expected 5 Cards but received 4", exception.getMessage());
     }
 
     @Test()
     public void testTooManyCards() {
         String[] handInput = {"2H", "3H", "4H", "5H", "6H", "7H"};
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> { new Hand(handInput); });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Hand(handInput));
         assertEquals("Expected 5 Cards but received 6", exception.getMessage());
     }
 
