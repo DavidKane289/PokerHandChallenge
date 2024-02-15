@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 /**
  * Class representing a hand of cards.
- * Provides access to the determineHandRank method which provides the appropriate rank based on it's cards
+ * Provides access to the determineHandRank() method which provides the appropriate rank based on it's cards
  */
 public class Hand {
     private final Card[] cards = new Card[5];
@@ -30,6 +30,10 @@ public class Hand {
         Arrays.sort(this.cards, Comparator.comparing(Card::getCardRankIndex));
     }
 
+    /**
+     * Uses the private functions of this class to determine the correct HandRank for the card array
+     * @return HandRank - An enum representing the value of the cards in the hand
+     */
     public HandRank determineHandRank() {
         long countOfRepeatingCardsByRank = countTotalRepeatingCards(Card::getCardRank);
         boolean isFlush = countTotalRepeatingCards(Card::getCardSuit) == cards.length;

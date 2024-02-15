@@ -24,7 +24,8 @@ public class PokerHandsHandler {
      * Handles arguments from the entrypoint of the application
      *
      * @param args - The arguments from the application entrypoint
-     * @return String || null - If arguments are supplied
+     * @return String - If arguments are supplied the string to the file will be returned otherwise null
+     * @throws IllegalArgumentException - Too many arguments provided
      */
     private String handleArguments(String[] args) throws IllegalArgumentException {
         if(args == null || args.length == 0) {
@@ -38,6 +39,14 @@ public class PokerHandsHandler {
         throw new IllegalArgumentException("Too many arguments have been supplied");
     }
 
+    /**
+     * Based on the provided parameter if applicable it will return either a FileInputStream from the requested resource
+     * Or it will utilise the sample file in the classpath
+     * @param customFilePath - the path to the provided file, or null if not supplied
+     * @return InputStream -
+     * @throws IOException - File Not Found
+     * @throws IllegalArgumentException - File was found but is empty
+     */
     private InputStream getInputStream(String customFilePath) throws IOException, IllegalArgumentException {
         if(null != customFilePath) {
             Path path = Paths.get(customFilePath);
