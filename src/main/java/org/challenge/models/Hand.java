@@ -19,7 +19,7 @@ public class Hand {
             throw new IllegalArgumentException("Expected 5 Cards but received " + input.length);
         }
 
-        if(new HashSet<>(Arrays.asList(input)).size() != input.length) {
+        if(new HashSet<>(Arrays.stream(input).map(String::toUpperCase).collect(Collectors.toList())).size() != input.length) {
             throw new DuplicateCardException("Hand contains duplicate card(s)");
         }
 

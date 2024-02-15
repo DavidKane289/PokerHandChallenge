@@ -23,6 +23,13 @@ public class HandTest {
     }
 
     @Test()
+    public void testDuplicateCardsWithMixedCaseException() {
+        String[] handInput = {"2H", "2D", "4H", "th", "TH"};
+        DuplicateCardException exception = assertThrows(DuplicateCardException.class, () -> { new Hand(handInput); });
+        assertEquals("Hand contains duplicate card(s)", exception.getMessage());
+    }
+
+    @Test()
     public void testTooFewCards() {
         String[] handInput = {"2H", "3H", "4H", "5H"};
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> { new Hand(handInput); });

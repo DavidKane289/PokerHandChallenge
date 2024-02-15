@@ -73,7 +73,7 @@ public class PokerHandsHandler {
 
     private void processPokerHandLine(String line) throws IllegalArgumentException, UnmatchedCardValueException, DuplicateCardException {
         if(null != line && !line.isEmpty()) {
-            Hand hand = new Hand(line.toUpperCase().split(" "));
+            Hand hand = new Hand(line.split(" "));
             System.out.println(line + " => " + hand.determineHandRank());
         }
     }
