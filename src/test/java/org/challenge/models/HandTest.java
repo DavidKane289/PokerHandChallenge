@@ -114,4 +114,22 @@ public class HandTest {
         String[] handInput = {"JH", "TH", "9H", "8H", "7H"};
         assertEquals(HandRank.STRAIGHT_FLUSH, new Hand(handInput).determineHandRank());
     }
+
+    @Test()
+    public void testForRoyalFlush() throws UnmatchedCardValueException, DuplicateCardException {
+        String[] handInput = {"AH", "TH", "JH", "KH", "QH"};
+        assertEquals(HandRank.ROYAL_FLUSH, new Hand(handInput).determineHandRank());
+    }
+
+    @Test()
+    public void testForAceNotHighAndLow() throws UnmatchedCardValueException, DuplicateCardException {
+        String[] handInput = {"QH", "KD", "AH", "2C", "3S"};
+        assertEquals(HandRank.HIGH_CARD, new Hand(handInput).determineHandRank());
+    }
+
+    @Test()
+    public void testForAceCantBeHighAndLowButCanFlush() throws UnmatchedCardValueException, DuplicateCardException {
+        String[] handInput = {"QH", "KH", "AH", "2H", "3H"};
+        assertEquals(HandRank.FLUSH, new Hand(handInput).determineHandRank());
+    }
 }

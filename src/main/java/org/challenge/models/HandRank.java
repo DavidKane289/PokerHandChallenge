@@ -1,6 +1,7 @@
 package org.challenge.models;
 
 public enum HandRank {
+    ROYAL_FLUSH("Royal Flush"),
     STRAIGHT_FLUSH("Straight Flush"),
     FOUR_OF_A_KIND("Four of a Kind"),
     FULL_HOUSE("Full House"),

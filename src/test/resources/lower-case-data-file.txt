@@ -1,1 +1,1 @@
-as ks qs js ts
+as ks 5s js 2s

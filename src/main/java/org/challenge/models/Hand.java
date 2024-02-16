@@ -41,6 +41,10 @@ public class Hand {
         boolean isTwoPair = isTwoPair();
         boolean isFullHouse = isTwoPair && countOfRepeatingCardsByRank == 5;
 
+        if (isFlush && isAceHighStraight()) {
+            return HandRank.ROYAL_FLUSH;
+        }
+
         if(isStraight && isFlush) {
             return HandRank.STRAIGHT_FLUSH;
         }
@@ -131,6 +135,16 @@ public class Hand {
                 .values().stream()
                 .filter(count -> count > 1)
                 .count() == 2;
+    }
+
+    /**
+     * Used to identify when a hand contains all cards that would make a Royal Flush
+     * @return boolean - true when all cards match
+     */
+    private boolean isAceHighStraight() {
+        return Arrays.stream(cards)
+                .map(Card::getCardRank)
+                .allMatch(rank -> rank == CardRank.TEN || rank == CardRank.JACK || rank == CardRank.QUEEN || rank == CardRank.KING || rank == CardRank.ACE);
     }
 
     public Card[] getCards() {

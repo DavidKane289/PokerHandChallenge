@@ -150,7 +150,7 @@ public class PokerHandsHandlerTest {
         PokerHandsHandler handler = new PokerHandsHandler();
         try {
             handler.handle(args);
-            assertEquals("as ks qs js ts => Straight Flush\r\n", consoleContent.toString());
+            assertEquals("as ks 5s js 2s => Flush\r\n", consoleContent.toString());
         } catch (Exception e) {
             fail("Exception should not have been thrown");
         }
