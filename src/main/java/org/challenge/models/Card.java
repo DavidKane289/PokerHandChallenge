@@ -22,7 +22,7 @@ public class Card {
         }
 
         if(input.length() != 2) {
-            throw new IllegalArgumentException("Invalid input length, expected 2 but was " + input.length());
+            throw new IllegalArgumentException("Invalid card length, expected 2 characters but was " + input.length());
         }
 
         this.rank = CardRank.findByText(String.valueOf(Character.toUpperCase(input.charAt(0))));

@@ -28,13 +28,13 @@ public class CardTest {
     @Test()
     public void testCardInputTooShort() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Card("2"));
-        assertEquals("Invalid input length, expected 2 but was 1", exception.getMessage());
+        assertEquals("Invalid card length, expected 2 characters but was 1", exception.getMessage());
     }
 
     @Test()
     public void testCardInputTooLong() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> new Card("22222222222"));
-        assertEquals("Invalid input length, expected 2 but was 11", exception.getMessage());
+        assertEquals("Invalid card length, expected 2 characters but was 11", exception.getMessage());
     }
 
     @Test()

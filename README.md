@@ -25,9 +25,9 @@ To get the project up and running on your machine;
     mvn package
     ```
    This will create a JAR file within the .\target directory
-4. Execute the JAR file by supplying a file or without supplying any files to use `challenge-samples.csv`
+4. Execute the JAR file by supplying a file or without supplying any files to use `challenge-samples.txt`
    ```sh
-    java -jar .\target\PokerHandChallenge-1.0.jar C:\challenge-samples.csv
+    java -jar .\target\PokerHandChallenge-1.0.jar C:\challenge-samples.txt
     java -jar .\target\PokerHandChallenge-1.0.jar
     ```
 
