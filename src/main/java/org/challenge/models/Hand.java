@@ -12,10 +12,11 @@ import java.util.stream.Collectors;
  * Provides access to the determineHandRank() method which provides the appropriate rank based on it's cards
  */
 public class Hand {
-    private final Card[] cards = new Card[5];
+    private final int maxNoOfCardsInHand = 5;
+    private final Card[] cards = new Card[maxNoOfCardsInHand];
 
     public Hand(String[] input) throws IllegalArgumentException, DuplicateCardException, UnmatchedCardValueException {
-        if(input.length != 5) {
+        if(input.length != maxNoOfCardsInHand) {
             throw new IllegalArgumentException("Expected 5 Cards but received " + input.length);
         }
 
@@ -36,10 +37,10 @@ public class Hand {
      */
     public HandRank determineHandRank() {
         long countOfRepeatingCardsByRank = countTotalRepeatingCards(Card::getCardRank);
-        boolean isFlush = countTotalRepeatingCards(Card::getCardSuit) == cards.length;
+        boolean isFlush = countTotalRepeatingCards(Card::getCardSuit) == this.cards.length;
         boolean isStraight = isStraight();
         boolean isTwoPair = isTwoPair();
-        boolean isFullHouse = isTwoPair && countOfRepeatingCardsByRank == 5;
+        boolean isFullHouse = isTwoPair && countOfRepeatingCardsByRank == this.cards.length;
 
         if(isStraight && isFlush) {
             if(isAceHighStraight()) {
@@ -69,7 +70,7 @@ public class Hand {
             return HandRank.THREE_OF_A_KIND;
         }
 
-        if(isTwoPair && countOfRepeatingCardsByRank >= 4) {
+        if(isTwoPair) {
             return HandRank.TWO_PAIR;
         }
 
@@ -86,7 +87,7 @@ public class Hand {
      * @return long - The total number of cards which are repeated i.e. 4 (2S, 2D, 2C, 2H, 5H)
      */
     private long countTotalRepeatingCards(Function<Card, ?> classifier) {
-        return Arrays.stream(cards)
+        return Arrays.stream(this.cards)
                 .collect(Collectors.groupingBy(classifier, Collectors.counting()))
                 .values().stream()
                 .filter(count -> count > 1)
@@ -99,17 +100,17 @@ public class Hand {
      * @return boolean
      */
     private boolean isStraight() {
-        List<Integer> ranks = Arrays.stream(cards).map(Card::getCardRankIndex).collect(Collectors.toList());
+        List<Integer> ranks = Arrays.stream(this.cards).map(Card::getCardRankIndex).collect(Collectors.toList());
 
         boolean hasAce = false;
-        int requiredRanksInSequence = 4;
+        int requiredRanksInSequence = this.cards.length;
         if (ranks.contains(CardRank.ACE.getIndex())) {
             ranks.remove(Integer.valueOf(CardRank.ACE.getIndex()));
             hasAce = true;
             --requiredRanksInSequence;
         }
 
-        long totalInSequence = 0;
+        long totalInSequence = 1;
         for (int i = 0; i < ranks.size() - 1; i++) {
             if (ranks.get(i) + 1 != ranks.get(i + 1)) {
                 return false;
@@ -119,7 +120,7 @@ public class Hand {
         }
 
         if(hasAce && totalInSequence == requiredRanksInSequence) {
-            return ranks.get(0) == 1 || ranks.get(3) == 12;
+            return ranks.get(0) == CardRank.TWO.getIndex() || ranks.get(3) == CardRank.KING.getIndex();
         }
 
         return !hasAce && totalInSequence == requiredRanksInSequence;
@@ -130,7 +131,7 @@ public class Hand {
      * @return boolean - returns true when count reads two meaning two pairs i.e. (AH, AC, 5D, 3C, 3S) or false when one or no pairs exist
      */
     private boolean isTwoPair() {
-        return Arrays.stream(cards)
+        return Arrays.stream(this.cards)
                 .collect(Collectors.groupingBy(Card::getCardRank, Collectors.counting()))
                 .values().stream()
                 .filter(count -> count > 1)
@@ -142,12 +143,12 @@ public class Hand {
      * @return boolean - true when all cards match
      */
     private boolean isAceHighStraight() {
-        return Arrays.stream(cards)
+        return Arrays.stream(this.cards)
                 .map(Card::getCardRank)
                 .allMatch(rank -> rank == CardRank.TEN || rank == CardRank.JACK || rank == CardRank.QUEEN || rank == CardRank.KING || rank == CardRank.ACE);
     }
 
     public Card[] getCards() {
-        return cards;
+        return this.cards;
     }
 }
