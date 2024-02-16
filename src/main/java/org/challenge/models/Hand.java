@@ -138,7 +138,7 @@ public class Hand {
     }
 
     /**
-     * Used to identify when a hand contains all cards that would make a Royal Flush
+     * Used to identify when a hand contains all cards that would make an Ace High Straight
      * @return boolean - true when all cards match
      */
     private boolean isAceHighStraight() {
