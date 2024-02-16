@@ -17,7 +17,7 @@ To get the project up and running on your machine;
 
 1. Clone the repository
     ```sh
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/DavidKane289/PokerHandChallenge.git
     ```
 2. Navigate to the project directory
 3. Compile and package the project using Maven
