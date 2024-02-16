@@ -41,11 +41,11 @@ public class Hand {
         boolean isTwoPair = isTwoPair();
         boolean isFullHouse = isTwoPair && countOfRepeatingCardsByRank == 5;
 
-        if (isFlush && isAceHighStraight()) {
-            return HandRank.ROYAL_FLUSH;
-        }
-
         if(isStraight && isFlush) {
+            if(isAceHighStraight()) {
+                return HandRank.ROYAL_FLUSH;
+            }
+
             return HandRank.STRAIGHT_FLUSH;
         }
 
